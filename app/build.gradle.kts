@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.gms.google.services)
 }
-
 android {
     namespace = "com.example.midiflux"
     compileSdk = 36
@@ -37,7 +37,10 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+        implementation("com.google.firebase:firebase-firestore:24.9.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
+
+    apply(plugin = "com.google.gms.google-services")
