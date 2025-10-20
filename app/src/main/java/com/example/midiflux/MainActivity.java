@@ -31,9 +31,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Set up fragment switching
-    ImageButton profileButton = findViewById(R.id.profilebutton);
-    ImageButton homeButton = findViewById(R.id.homebutton);
-    ImageButton settingsButton = findViewById(R.id.settingsbutton);
+        ImageButton profileButton = findViewById(R.id.profilebutton);
+        ImageButton homeButton = findViewById(R.id.homebutton);
+        ImageButton settingsButton = findViewById(R.id.settingsbutton);
+        ImageButton keypadButton = findViewById(R.id.keypadbutton);
+        ImageButton knobsButton = findViewById(R.id.knobsbutton);
 
         // Show home fragment by default
         replaceFragment(new homeFragment());
@@ -56,6 +58,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 replaceFragment(new settingsFragment());
+            }
+        });
+
+        keypadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new keypadFragment());
+            }
+        });
+
+        knobsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new knobsFragment());
             }
         });
     }
