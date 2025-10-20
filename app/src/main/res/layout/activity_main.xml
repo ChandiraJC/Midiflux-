@@ -25,7 +25,7 @@
             android:layout_weight="1"
             android:src="@drawable/profile"
             android:scaleType="centerInside"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@color/nav_purple_extra_bright"
             android:contentDescription="Profile" />
 
         <ImageButton
@@ -37,7 +37,7 @@
             android:layout_weight="1"
             android:src="@drawable/settings"
             android:scaleType="centerInside"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@color/nav_purple_extra_bright"
             android:contentDescription="Settings" />
 
         <ImageButton
@@ -49,7 +49,7 @@
             android:layout_weight="1"
             android:src="@drawable/patches"
             android:scaleType="centerInside"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@color/nav_purple_extra_bright"
             android:contentDescription="Patches" />
 
         <ImageButton
@@ -61,7 +61,7 @@
             android:layout_weight="1"
             android:src="@drawable/keypad"
             android:scaleType="centerInside"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@color/nav_purple_extra_bright"
             android:contentDescription="Keypad" />
 
         <ImageButton
@@ -73,7 +73,7 @@
             android:layout_weight="1"
             android:src="@drawable/knobs"
             android:scaleType="centerInside"
-            android:background="@android:color/holo_blue_dark"
+            android:background="@color/nav_purple_extra_bright"
             android:contentDescription="Knobs" />
         <!-- New vertical LinearLayout -->
     </LinearLayout>
