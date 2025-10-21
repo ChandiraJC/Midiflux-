@@ -24,6 +24,24 @@ public class homeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+        // --- UDP send logic ---
+        private void sendPadMessage(String pad) {
+            new Thread(() -> {
+                try {
+                    String message = pad; // e.g., "PAD1"
+                    java.net.DatagramSocket socket = new java.net.DatagramSocket();
+                    java.net.InetAddress address = java.net.InetAddress.getByName("192.168.1.100"); // <-- Replace with your PC's IP
+                    int port = 5005;
+                    byte[] buf = message.getBytes();
+                    java.net.DatagramPacket packet = new java.net.DatagramPacket(buf, buf.length, address, port);
+                    socket.send(packet);
+                    socket.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+
     public homeFragment() {
         // Required empty public constructor
     }
@@ -58,7 +76,25 @@ public class homeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+            // Inflate the layout for this fragment
+            View view = inflater.inflate(R.layout.fragment_home, container, false);
+            return view;
+        }
+
+        @Override
+        public void onViewCreated(View view, Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+
+            view.findViewById(R.id.patch1).setOnClickListener(v -> sendPadMessage("PAD1"));
+            view.findViewById(R.id.patch2).setOnClickListener(v -> sendPadMessage("PAD2"));
+            view.findViewById(R.id.patch3).setOnClickListener(v -> sendPadMessage("PAD3"));
+            view.findViewById(R.id.patch4).setOnClickListener(v -> sendPadMessage("PAD4"));
+            view.findViewById(R.id.patch5).setOnClickListener(v -> sendPadMessage("PAD5"));
+            view.findViewById(R.id.patch6).setOnClickListener(v -> sendPadMessage("PAD6"));
+            view.findViewById(R.id.patch7).setOnClickListener(v -> sendPadMessage("PAD7"));
+            view.findViewById(R.id.patch8).setOnClickListener(v -> sendPadMessage("PAD8"));
+            view.findViewById(R.id.patch9).setOnClickListener(v -> sendPadMessage("PAD9"));
+            view.findViewById(R.id.patch10).setOnClickListener(v -> sendPadMessage("PAD10"));
+        }
     }
 }
