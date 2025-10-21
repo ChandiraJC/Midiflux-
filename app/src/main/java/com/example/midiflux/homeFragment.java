@@ -30,8 +30,8 @@ public class homeFragment extends Fragment {
                 try {
                     String message = pad; // e.g., "PAD1"
                     java.net.DatagramSocket socket = new java.net.DatagramSocket();
-                    java.net.InetAddress address = java.net.InetAddress.getByName("192.168.1.100"); // <-- Replace with your PC's IP
-                    int port = 5005;
+                    java.net.InetAddress address = java.net.InetAddress.getByName("172.20.10.5"); // <-- Replace with your PC's IP
+                    int port = 6000;
                     byte[] buf = message.getBytes();
                     java.net.DatagramPacket packet = new java.net.DatagramPacket(buf, buf.length, address, port);
                     socket.send(packet);
@@ -96,5 +96,4 @@ public class homeFragment extends Fragment {
             view.findViewById(R.id.patch9).setOnClickListener(v -> sendPadMessage("PAD9"));
             view.findViewById(R.id.patch10).setOnClickListener(v -> sendPadMessage("PAD10"));
         }
-    }
 }
