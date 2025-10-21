@@ -8,6 +8,10 @@ import android.media.midi.MidiInputPort;
 import android.os.Handler;
 import android.util.Log;
 import java.io.IOException;
+import com.google.firebase.firestore.FirebaseFirestore;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MyMidiManager {
     private static final String TAG = "MyMidiManager";
@@ -55,21 +59,31 @@ public class MyMidiManager {
     }
 
     public void sendCC(int channel, int cc, int value) {
+        byte[] buffer = new byte[32];
+        int numBytes = 0;
+        long now = System.nanoTime();
+
+        // Create a standard MIDI Control Change message
+        buffer[numBytes++] = (byte)(0xB0 | channel); // CC on channel
+        buffer[numBytes++] = (byte)cc;               // CC number
+        buffer[numBytes++] = (byte)value;            // value
+
+        // Log MIDI message to Firestore for testing
+        Map<String, Object> midiData = new HashMap<>();
+        midiData.put("bytes", Arrays.toString(Arrays.copyOf(buffer, numBytes)));
+        midiData.put("channel", channel);
+        midiData.put("cc", cc);
+        midiData.put("value", value);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("midi_test").add(midiData);
+
         if (inputPort == null) {
             Log.e(TAG, "Cannot send MIDI: input port is null");
             return;
         }
-        
+
         try {
-            byte[] buffer = new byte[32];
-            int numBytes = 0;
-            long now = System.nanoTime();
-            
-            // Create a standard MIDI Control Change message
-            buffer[numBytes++] = (byte)(0xB0 | channel); // CC on channel
-            buffer[numBytes++] = (byte)cc;               // CC number
-            buffer[numBytes++] = (byte)value;            // value
-            
             // Send via MidiInputPort (which extends OutputStream)
             inputPort.send(buffer, 0, numBytes, now);
             Log.d(TAG, "Sent MIDI CC: ch=" + channel + " cc=" + cc + " val=" + value);

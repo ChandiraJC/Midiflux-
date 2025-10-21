@@ -16,4 +16,12 @@
         android:textSize="32sp"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/firestoreTestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Firestore"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp" />
+
 </FrameLayout>

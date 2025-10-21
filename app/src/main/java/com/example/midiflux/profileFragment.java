@@ -1,12 +1,11 @@
 package com.example.midiflux;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +58,9 @@ public class profileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        Button firestoreTestButton = view.findViewById(R.id.firestoreTestButton);
+        firestoreTestButton.setOnClickListener(v -> FirestoreTest.sendTestMessage());
+        return view;
     }
 }
