@@ -1,58 +1,41 @@
 package com.example.midiflux;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.midiflux.adapter.PadInfoAdapter;
+import com.example.midiflux.model.PadInfo;
+import com.example.midiflux.storage.PadStorageManager;
+
+import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link profileFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragment for displaying saved pad information
  */
 public class profileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView recyclerView;
+    private TextView emptyView;
+    private PadInfoAdapter adapter;
+    private PadStorageManager storageManager;
 
     public profileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment profileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static profileFragment newInstance(String param1, String param2) {
-        profileFragment fragment = new profileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        storageManager = new PadStorageManager(getContext());
     }
 
     @Override
@@ -60,5 +43,42 @@ public class profileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+    
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        
+        recyclerView = view.findViewById(R.id.pads_recycler_view);
+        emptyView = view.findViewById(R.id.empty_view);
+        
+        // Set up RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new PadInfoAdapter();
+        recyclerView.setAdapter(adapter);
+        
+        // Load and display pad data
+        loadPadData();
+    }
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Refresh data when returning to this fragment
+        loadPadData();
+    }
+    
+    private void loadPadData() {
+        List<PadInfo> padsWithData = storageManager.getPadsWithData();
+        
+        if (padsWithData.isEmpty()) {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+            emptyView.setText("No pad configurations saved yet.\n\nLong press on any pad in the Home tab to start configuring your pads!");
+        } else {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+            adapter.setPadInfoList(padsWithData);
+        }
     }
 }

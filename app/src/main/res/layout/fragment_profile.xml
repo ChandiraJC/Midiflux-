@@ -1,19 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".homeFragment">
+    android:orientation="vertical"
+    android:background="#F5F5F5"
+    tools:context=".profileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- Header -->
     <TextView
-        android:id="@+id/profileTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:text="PROFILE"
-        android:textSize="32sp"
-        android:textStyle="bold" />
+        android:text="Your Pad Configurations"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#333333" />
 
-</FrameLayout>
+    <!-- Pads RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pads_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="visible" />
+
+    <!-- Empty View -->
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="32dp"
+        android:gravity="center"
+        android:text="No pad configurations saved yet.\n\nLong press on any pad in the Home tab to start configuring your pads!"
+        android:textSize="16sp"
+        android:textColor="#666666"
+        android:textAlignment="center"
+        android:visibility="gone" />
+
+</LinearLayout>
