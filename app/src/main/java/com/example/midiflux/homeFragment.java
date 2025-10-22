@@ -1,12 +1,12 @@
 package com.example.midiflux;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,15 +85,46 @@ public class homeFragment extends Fragment {
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
 
-            view.findViewById(R.id.patch1).setOnClickListener(v -> sendPadMessage("PAD1"));
-            view.findViewById(R.id.patch2).setOnClickListener(v -> sendPadMessage("PAD2"));
-            view.findViewById(R.id.patch3).setOnClickListener(v -> sendPadMessage("PAD3"));
-            view.findViewById(R.id.patch4).setOnClickListener(v -> sendPadMessage("PAD4"));
-            view.findViewById(R.id.patch5).setOnClickListener(v -> sendPadMessage("PAD5"));
-            view.findViewById(R.id.patch6).setOnClickListener(v -> sendPadMessage("PAD6"));
-            view.findViewById(R.id.patch7).setOnClickListener(v -> sendPadMessage("PAD7"));
-            view.findViewById(R.id.patch8).setOnClickListener(v -> sendPadMessage("PAD8"));
-            view.findViewById(R.id.patch9).setOnClickListener(v -> sendPadMessage("PAD9"));
-            view.findViewById(R.id.patch10).setOnClickListener(v -> sendPadMessage("PAD10"));
+            // Set up click and long-press listeners for each pad
+            setupPad(view.findViewById(R.id.patch1), "PAD1", 1);
+            setupPad(view.findViewById(R.id.patch2), "PAD2", 2);
+            setupPad(view.findViewById(R.id.patch3), "PAD3", 3);
+            setupPad(view.findViewById(R.id.patch4), "PAD4", 4);
+            setupPad(view.findViewById(R.id.patch5), "PAD5", 5);
+            setupPad(view.findViewById(R.id.patch6), "PAD6", 6);
+            setupPad(view.findViewById(R.id.patch7), "PAD7", 7);
+            setupPad(view.findViewById(R.id.patch8), "PAD8", 8);
+            setupPad(view.findViewById(R.id.patch9), "PAD9", 9);
+            setupPad(view.findViewById(R.id.patch10), "PAD10", 10);
+        }
+        
+        /**
+         * Set up click and long-press listeners for a pad
+         * @param padView The pad view
+         * @param padMessage The message to send on click
+         * @param padNumber The pad number
+         */
+        private void setupPad(View padView, String padMessage, int padNumber) {
+            // Set up click listener
+            padView.setOnClickListener(v -> sendPadMessage(padMessage));
+            
+            // Set up long-press listener
+            padView.setOnLongClickListener(v -> {
+                showPadEditorDialog(padNumber);
+                return true; // Return true to indicate the long-press was handled
+            });
+        }
+        
+        /**
+         * Show the pad editor dialog
+         * @param padNumber The pad number
+         */
+        private void showPadEditorDialog(int padNumber) {
+            // Create and show the pad editor dialog
+            PadEditorDialog dialog = new PadEditorDialog();
+            Bundle args = new Bundle();
+            args.putInt("padNumber", padNumber);
+            dialog.setArguments(args);
+            dialog.show(getChildFragmentManager(), "PadEditorDialog");
         }
 }
