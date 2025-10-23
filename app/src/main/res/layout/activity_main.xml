@@ -71,10 +71,10 @@
             android:minWidth="64dp"
             android:minHeight="64dp"
             android:layout_weight="1"
-            android:src="@drawable/knobs"
+            android:src="@drawable/ic_logout"
             android:scaleType="centerInside"
-            android:background="@color/nav_purple_extra_bright"
-            android:contentDescription="Knobs" />
+            android:background="@color/logout_red"
+            android:contentDescription="Logout" />
         <!-- New vertical LinearLayout -->
     </LinearLayout>
     <!-- Vertical LinearLayout below the horizontal one -->

@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
  * Use the {@link homeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class homeFragment extends Fragment {
+public class homeFragment extends Fragment implements PadEditorDialog.OnPadSaveListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -125,6 +125,27 @@ public class homeFragment extends Fragment {
             Bundle args = new Bundle();
             args.putInt("padNumber", padNumber);
             dialog.setArguments(args);
+            // Set this fragment as the listener
+            dialog.setOnPadSaveListener(this);
             dialog.show(getChildFragmentManager(), "PadEditorDialog");
+        }
+        
+        /**
+         * Implementation of OnPadSaveListener
+         * This gets called when a pad is saved in the editor dialog
+         */
+        @Override
+        public void onPadSaved(int padNumber, com.example.midiflux.model.PadInfo padInfo) {
+            android.util.Log.d("homeFragment", "onPadSaved: pad=" + padNumber + " hasData=" + 
+                               (padInfo != null && padInfo.hasData()));
+            
+            // Notify the profile fragment to update its save button if it's loaded
+            androidx.fragment.app.Fragment profileFrag = getParentFragmentManager().findFragmentByTag("profileFragment");
+            if (profileFrag instanceof profileFragment) {
+                ((profileFragment) profileFrag).refreshSessionsAndFab();
+                android.util.Log.d("homeFragment", "onPadSaved: notified profileFragment to refresh");
+            } else {
+                android.util.Log.d("homeFragment", "onPadSaved: profileFragment not found or not active");
+            }
         }
 }

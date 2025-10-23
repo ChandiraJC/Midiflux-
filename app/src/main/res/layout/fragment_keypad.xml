@@ -5,15 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".homeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- Message shown when keypad feature hasn't been implemented yet -->
     <TextView
-        android:id="@+id/homeTextView"
-        android:layout_width="match_parent"
+        android:id="@+id/keypadMessage"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:text="KEYPAD"
-        android:textSize="32sp"
-        android:textStyle="bold" />
+        android:text="This feature will be available in a future update"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="16dp" />
 
 </FrameLayout>
