@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textPadNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PAD 1"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple_500"
+            android:background="@android:color/transparent"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/textPadTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pad Title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/textPadDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description of the pad and what it does"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/textLastEdited"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last edited: Oct 22, 16:30"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:textColor="#757575"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
